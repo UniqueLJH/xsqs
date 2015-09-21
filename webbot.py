@@ -11,14 +11,11 @@ import requests.utils
 import os
 
 
-
-
-
-
 class XSQST(object):
     def __init__(self):
         self.s = requests.session()
         return
+
     def login(self):
         if os.path.exists('cookies.txt'):
             with open('cookies.txt') as f:
@@ -94,7 +91,6 @@ class XSQST(object):
         reqLoad = self.s.get(LoadGameScriptUrl)
         # print reqLoad.content
 
-
     def _Post(self, t):
         p ={
         'sid':self.newsid,
@@ -103,12 +99,14 @@ class XSQST(object):
         }
         rtnreq = self.s.post('http://game.178mxwk.90tank.com/service/main.ashx', data=p)
         return rtnreq
+
     def Info_Action(self):
         req = self._Post(5002)
         print req.content
         infolist = json.loads(req.content)
         self.bzd = infolist['data']['bzd']
         self.boxcount = infolist['data']['boxcount']
+
     def Food_Action(self):
 
         req7 = self._Post(7001)
