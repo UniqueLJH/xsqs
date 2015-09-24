@@ -624,7 +624,6 @@ class XSQST(object):
                 req1 = self.gift(id,3)
                 print req1.content
 
-
     def Util(self):
 
         self.login()
@@ -641,11 +640,9 @@ class XSQST(object):
                 self.login()
                 print time.time()
 
-
-
-
-xsqs = XSQST()
-xsqs.Util()
+if __name__ == "__main__":
+    xsqs = XSQST()
+    xsqs.Util()
 # # # # xsqs.login()
 # #
 # for i in range(1,61):
