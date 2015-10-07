@@ -301,7 +301,7 @@ class XSQST(object):
             diamond = 0
             kuang = 200
 
-        deep = 220
+        deep = 120
         for i in range(0, 1000):
             for j in range(0, 500):
                 if self.mine[i][j] == -1:
