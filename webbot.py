@@ -301,7 +301,7 @@ class XSQST(object):
             diamond = 0
             kuang = 200
 
-        deep = 120
+        deep = 270
         for i in range(0, 1000):
             for j in range(0, 500):
                 if self.mine[i][j] == -1:
@@ -633,7 +633,6 @@ class XSQST(object):
                 self.Food_Action()
                 self.Box_Action()
                 self.Arena_Action()
-                # self.Factory_Action()
                 self.Mine_Action()
                 time.sleep(120)
             except:
