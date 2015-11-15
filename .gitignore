@@ -3,6 +3,9 @@
 /.idea
 /.idea/*
 
+*.jpg
+*.pyc
+
 
 
 !.gitignore

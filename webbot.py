@@ -1,4 +1,4 @@
-# -*- coding: cp936 -*-
+#encoding=utf-8
 from __future__ import division
 import requests
 import time
@@ -291,11 +291,11 @@ class XSQST(object):
         # yello 27
         yellowgem = 0
         if self.szg < 10:
-            # ruby = 180
-            # purplegem =150
-            # greengem =150
+            ruby = 180
+            purplegem =150
+            greengem =150
             diamond = 200
-            # yellowgem = 150
+            yellowgem = 150
             kuang = 0
         else:
             ruby = 0
@@ -303,9 +303,9 @@ class XSQST(object):
             greengem = 0
             yellowgem = 0
             diamond = 0
-            # kuang = 200
+            kuang = 200
 
-        deep = 270
+        deep = 260 
         for i in range(0, 1000):
             for j in range(0, 500):
                 if self.mine[i][j] == -1:
@@ -554,7 +554,7 @@ class XSQST(object):
             }
             print self.Formdata
             req3 = self.s.post('https://account.178.com/q_account.php', data=self.Formdata)
-            with open(r'./data/'+str(email)+'.txt', 'w') as f:
+  	    with open(r'./data/'+str(email)+'.txt', 'w') as f:
                 pickle.dump(self.s.cookies, f)
 
         pp = {
