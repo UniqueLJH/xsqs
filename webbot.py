@@ -1,4 +1,4 @@
-#encoding=utf-8
+# encoding=utf-8
 from __future__ import division
 import requests
 import time
@@ -9,6 +9,7 @@ import numpy as np
 import pickle
 import requests.utils
 import os
+import traceback
 
 
 class XSQST(object):
@@ -85,7 +86,7 @@ class XSQST(object):
         self.newnum = re.findall(patternum, targets)[-1]
         # print 'newsid', self.newsid
         # print 'newnum', self.newnum
-        posturl = 'http://game.178mxwk.90tank.com/'+soup.body.form['action']
+        posturl = 'http://game.178mxwk.90tank.com/' + soup.body.form['action']
         value = soup.body.input['value']
         # print 'posturl', posturl
         reqLoad = self.s.get(LoadGameScriptUrl)
@@ -165,15 +166,14 @@ class XSQST(object):
                 print temp['data']['iswin']
                 if temp['data']['iswin'] == 'true':
                     iswinlist[index] = 1
-                areacount = areacount+1
+                areacount = areacount + 1
                 time.sleep(2)
 
         p1 = {
             'type': 1,
             'sid': self.newsid,
             't': '6006',
-            'userid': str(self.newnum)
-            }
+            'userid': str(self.newnum)}
         self.s.post('http://game.178mxwk.90tank.com/service/main.ashx', data=p1)
         p1['type'] = 4
         self.s.post('http://game.178mxwk.90tank.com/service/main.ashx', data=p1)
@@ -198,69 +198,68 @@ class XSQST(object):
                 'id': 2492,
                 'sid': self.newsid,
                 't': '2018',
-                'userid': str(self.newnum)
-                }
+                'userid': str(self.newnum)}
             self.s.post('http://game.178mxwk.90tank.com/service/main.ashx', data=p)
 
     def setvalue(self, np, x, y, value, length):
         if value > 30000:
-            if np[x+1][y] < 10000:
-                np[x+1][y] += value / 4
-            if np[x-1][y] < 10000:
-                np[x-1][y] += value / 4
-            if np[x][y+1] < 10000:
-                np[x][y+1] += value / 4
-            if np[x][y-1] < 10000:
-                np[x][y-1] += value / 4
+            if np[x + 1][y] < 10000:
+                np[x + 1][y] += value / 4
+            if np[x - 1][y] < 10000:
+                np[x - 1][y] += value / 4
+            if np[x][y + 1] < 10000:
+                np[x][y + 1] += value / 4
+            if np[x][y - 1] < 10000:
+                np[x][y - 1] += value / 4
             return
         np[x][y] += value
         if length > 0:
-            np[x+1][y] += value / 4
-            np[x-1][y] += value / 4
-            np[x][y+1] += value / 4
-            np[x][y-1] += value / 4
+            np[x + 1][y] += value / 4
+            np[x - 1][y] += value / 4
+            np[x][y + 1] += value / 4
+            np[x][y - 1] += value / 4
         if length > 1:
-            np[x+2][y] += value / 8
-            np[x-2][y] += value / 8
-            np[x][y+2] += value / 8
-            np[x][y-2] += value / 8
-            np[x+1][y+1] += value / 8
-            np[x-1][y-1] += value / 8
-            np[x-1][y+1] += value / 8
-            np[x+1][y-1] += value / 8
+            np[x + 2][y] += value / 8
+            np[x - 2][y] += value / 8
+            np[x][y + 2] += value / 8
+            np[x][y - 2] += value / 8
+            np[x + 1][y + 1] += value / 8
+            np[x - 1][y - 1] += value / 8
+            np[x - 1][y + 1] += value / 8
+            np[x + 1][y - 1] += value / 8
         if length > 2:
-            np[x+3][y] += value / 12
-            np[x-3][y] += value / 12
-            np[x][y+3] += value / 12
-            np[x][y-3] += value / 12
-            np[x+2][y+1] += value / 12
-            np[x-2][y+1] += value / 12
-            np[x+2][y-1] += value / 12
-            np[x-2][y-1] += value / 12
-            np[x+1][y+2] += value / 12
-            np[x+1][y-2] += value / 12
-            np[x-1][y+2] += value / 12
-            np[x-1][y-2] += value / 12
+            np[x + 3][y] += value / 12
+            np[x - 3][y] += value / 12
+            np[x][y + 3] += value / 12
+            np[x][y - 3] += value / 12
+            np[x + 2][y + 1] += value / 12
+            np[x - 2][y + 1] += value / 12
+            np[x + 2][y - 1] += value / 12
+            np[x - 2][y - 1] += value / 12
+            np[x + 1][y + 2] += value / 12
+            np[x + 1][y - 2] += value / 12
+            np[x - 1][y + 2] += value / 12
+            np[x - 1][y - 2] += value / 12
         if length > 3:
-            np[x+4][y] += value / 16
-            np[x-4][y] += value / 16
-            np[x][y+4] += value / 16
-            np[x][y-4] += value / 16
+            np[x + 4][y] += value / 16
+            np[x - 4][y] += value / 16
+            np[x][y + 4] += value / 16
+            np[x][y - 4] += value / 16
 
-            np[x+3][y+1] += value / 16
-            np[x-3][y+1] += value / 16
-            np[x+3][y-1] += value / 16
-            np[x-3][y-1] += value / 16
+            np[x + 3][y + 1] += value / 16
+            np[x - 3][y + 1] += value / 16
+            np[x + 3][y - 1] += value / 16
+            np[x - 3][y - 1] += value / 16
 
-            np[x+2][y+2] += value / 16
-            np[x-2][y+2] += value / 16
-            np[x+2][y-2] += value / 16
-            np[x-2][y-2] += value / 16
+            np[x + 2][y + 2] += value / 16
+            np[x - 2][y + 2] += value / 16
+            np[x + 2][y - 2] += value / 16
+            np[x - 2][y - 2] += value / 16
 
-            np[x+1][y+3] += value / 16
-            np[x-1][y+3] += value / 16
-            np[x+1][y-3] += value / 16
-            np[x-1][y-3] += value / 16
+            np[x + 1][y + 3] += value / 16
+            np[x - 1][y + 3] += value / 16
+            np[x + 1][y - 3] += value / 16
+            np[x - 1][y - 3] += value / 16
 
     def deepvalue(self, i, j, deep):
         if j < deep:
@@ -275,7 +274,7 @@ class XSQST(object):
                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         valuelist2 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        value = np.zeros([1000, 500])
+        value = np.zeros([2000, 500])
         valuelist = valuelist1
         # ruby 24
         ruby = 0
@@ -292,8 +291,8 @@ class XSQST(object):
         yellowgem = 0
         if self.szg < 10:
             ruby = 180
-            purplegem =150
-            greengem =150
+            purplegem = 150
+            greengem = 150
             diamond = 200
             yellowgem = 150
             kuang = 0
@@ -305,8 +304,8 @@ class XSQST(object):
             diamond = 0
             kuang = 200
 
-        deep = 260 
-        for i in range(0, 1000):
+        deep = 260
+        for i in range(0, 2000):
             for j in range(0, 500):
                 if self.mine[i][j] == -1:
                     self.setvalue(value,  i,  j,  -100000,  0)
@@ -341,7 +340,7 @@ class XSQST(object):
         bx = -1
         by = -1
         bw = 0
-        for i in range(0, 1000):
+        for i in range(0, 2000):
             for j in range(0, 500):
                 if bw < value[i][j]:
                     bw = value[i][j]
@@ -360,22 +359,21 @@ class XSQST(object):
             'sid': self.newsid,
             't': '2005',
             'userid': str(self.newnum),
-            'cmd': 'getNodeList',
-            }
+            'cmd': 'getNodeList'}
         req = self.s.post('http://game.178mxwk.90tank.com/service/main.ashx', data=p1)
         # print req.content
         temp = json.loads(req.content)
         px = temp['data']['px']
         py = temp['data']['py']
         datalist = temp['data']['list']
-        self.mine = np.zeros([1000, 500])
+        self.mine = np.zeros([2000, 500])
 
-        for i in range(0, 1000):
+        for i in range(0, 2000):
             for j in range(0, 500):
                 self.mine[i][j] = -1
 
         for data in datalist:
-            x = data['x']+500
+            x = data['x'] + 1000
             y = data['y']
             type = data['type']
             self.mine[x][y] = type
@@ -388,8 +386,7 @@ class XSQST(object):
             'sid': self.newsid,
             't': '2006',
             'userid': str(self.newnum),
-            'cmd': 'getGatherList',
-            }
+            'cmd': 'getGatherList'}
         p = {
             'x': 0,
             'y': 0,
@@ -434,8 +431,8 @@ class XSQST(object):
                     self.mine[cx][cy] = 0
                     print 'charge ', cx, cy
                 else:
-                    if cntime-ctime < 60:
-                        time.sleep(cntime-ctime)
+                    if cntime - ctime < 60:
+                        time.sleep(cntime - ctime)
                     else:
                         return
             else:
@@ -443,11 +440,11 @@ class XSQST(object):
                 bx, by = self.Mvalue()
                 print 'find', bx, by
                 if self.mine[bx][by] > 0:
-                    p['x'] = bx-500
+                    p['x'] = bx - 1000
                     p['y'] = by
                     reqexplot = self.s.post(
                         'http://game.178mxwk.90tank.com/service/main.ashx', data=p)
-                    print 'explot', bx-500, by
+                    print 'explot', bx - 1000, by
                     print 'waiting 15'
                     time.sleep(15)
                     # print reqexplot.content
@@ -456,7 +453,7 @@ class XSQST(object):
                         print 'addnewnodelist---start'
                         newnodelist = temp1['data']['nodeList']
                         for data in newnodelist:
-                            x = data['x']+500
+                            x = data['x'] + 1000
                             y = data['y']
                             type = data['type']
                             self.mine[x][y] = type
@@ -527,8 +524,8 @@ class XSQST(object):
         self.s.post('http://game.178mxwk.90tank.com/service/main.ashx', data=p1)
 
     def loginreborn(self, email, password, nga):
-        if os.path.exists(r'./data/'+str(email)+'.txt'):
-            with open(r'./data/'+str(email)+'.txt') as f:
+        if os.path.exists(r'./data/' + str(email) + '.txt'):
+            with open(r'./data/' + str(email) + '.txt') as f:
                 cookies = pickle.load(f)
                 self.s.cookies = cookies
 
@@ -554,7 +551,7 @@ class XSQST(object):
             }
             print self.Formdata
             req3 = self.s.post('https://account.178.com/q_account.php', data=self.Formdata)
-  	    with open(r'./data/'+str(email)+'.txt', 'w') as f:
+            with open(r'./data/' + str(email) + '.txt', 'w') as f:
                 pickle.dump(self.s.cookies, f)
 
         pp = {
@@ -588,7 +585,7 @@ class XSQST(object):
             print r"can't get newnum"
         # print 'newsid', self.newsid
         # print 'newnum', self.newnum
-        posturl = 'http://game.178mxwk.90tank.com/'+soup.body.form['action']
+        posturl = 'http://game.178mxwk.90tank.com/' + soup.body.form['action']
         value = soup.body.input['value']
         # print 'posturl', posturl
         reqLoad = self.s.get(LoadGameScriptUrl)
@@ -643,8 +640,10 @@ class XSQST(object):
                 self.Arena_Action()
                 self.Mine_Action()
                 time.sleep(120)
-            except:
-                self.login()
+            except Exception, e:
+                # self.login()
+                print traceback.format_exc()
+                time.sleep(120)
                 print time.time()
 
 if __name__ == "__main__":
