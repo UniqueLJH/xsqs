@@ -377,7 +377,8 @@ class XSQST(object):
             y = data['y']
             type = data['type']
             self.mine[x][y] = type
-        # print self.mine[492][148]
+        print self.mine[930][233]
+        time.sleep(10)
 
     def Mine_Action(self):
         self.Mine_()
@@ -665,11 +666,11 @@ if __name__ == "__main__":
 #         print i
 #     xsqs.Info_Action()
 #     xsqs.friend(u'AkashA')
-#     xsqs.friend(u'Ò¹Óê°²ÈËÃÎ')
-# xsqs.friend(u'¼ò±Ê»­')
+#     xsqs.friend(u'Ò¹ï¿½ê°²ï¿½ï¿½ï¿½ï¿½')
+# xsqs.friend(u'ï¿½ï¿½Ê»ï¿½')
 # xsqs.friend(u'Leodinas')
-# xsqs.friend(u'½ÊÊ×ÀËÂþÅÉ')
-# xsqs.friend(u'²éÄÉÍÌÃ÷ÁÚËï')
+# xsqs.friend(u'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½')
+# xsqs.friend(u'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½')
 #     try:
 #         xsqs.getfriendlist()
 #     except:
